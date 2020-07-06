@@ -1,15 +1,14 @@
 package com.cloudxpert;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.junit.After;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -78,6 +77,9 @@ public class StreamsTestCase {
 	
 	@Test
 	public void testTotalSalary() {
-		
+		Optional<Double> sum = eList.stream().map(e -> e.getSalary()).reduce( (i1,i2) -> i1+i2);
+		assertEquals(900.0, sum.orElse(0.0),0.0);
+		Double totalSalary = eList.stream().reduce(0.0, (i,e) -> e.getSalary() + i, (a,b) -> a+b);
+		assertEquals(900.0, totalSalary,0.0);
 	}
 }
